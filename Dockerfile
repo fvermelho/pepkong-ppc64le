@@ -1,4 +1,4 @@
-FROM powerbr/redkong
+FROM powerbr/redkong2
 MAINTAINER Alexandre Vasconcellos, alexv@cpqd.com.br
 
 RUN luarocks install json4lua && \
@@ -11,3 +11,6 @@ COPY src/ /home/pepkong/src
 
 RUN cd /home/pepkong && luarocks make
 
+RUN mkdir /etc/kong && echo "custom_plugins = pepkong" >> /etc/kong/kong.conf
+
+ENV PATH="/usr/local/nginx/sbin:$PATH:/usr/local/kong/bin"
